@@ -9,7 +9,7 @@
 		<a th:href="@{/}">User 메인</a>
 		<a th:href="@{/user6/list}">user5 목록</a>
 		
-		<form action="/User/user6/register" method="post">
+		<form th:action="@{/user6/register}" method="post">
 		<table border="1">
 			<tr>
 				<td>아이디</td>
@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td>생일</td>
-				<td><input type="date" name="birth"></td>
+				<td><input type="date" name="date"></td>
 			</tr>
 			<tr>
 				<td>성별</td>
@@ -36,7 +36,7 @@
 			</tr>
 			<tr>
 				<td>주소</td>
-				<td><input type="text" name="addr"></td>
+				<td><input type="text" name="address"></td>
 			</tr>
 			<tr>
 				<td>휴대폰</td>

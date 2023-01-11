@@ -7,9 +7,9 @@
 	<body>
 		<h3>user5 등록</h3>
 		<a th:href="@{/}">User 메인</a>
-		<a th:href="@{/user6/list}">user5 목록</a>
+		<a th:href="@{/user5/list}">user5 목록</a>
 		
-		<form action="/User/user6/register" method="post">
+		<form th:action="@{/user5/register}" method="post">
 		<table border="1">
 			<tr>
 				<td>아이디</td>
