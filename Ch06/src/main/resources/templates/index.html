@@ -3,6 +3,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Spring Boot</title>
+		<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+		<script>
+			$(function(){
+				
+				$('#name').click(function(){
+					alert($(this).val());
+				});
+				
+			});
+		</script>
 	</head>
 	<!--
 		날짜 : 2023/01/09
@@ -56,5 +66,9 @@
 		<a th:href="@{/sub/include}">타임리프 include 실습</a>
 		<a th:href="@{/sub/layout}">타임리프 layout 실습</a>
 		
+		<h4>타임리프 기타</h4>
+		<button id="name" th:value="${user1.name}">이름 표시</button>
+		<label><input type="radio" value="1" th:checked="${user1.name == '김유신'}">김유신</label>
+		<label><input type="radio">김유신</label>
 	</body>
 </html>
