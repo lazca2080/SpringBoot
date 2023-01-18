@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.ch09.dao.User1DAO;
 import kr.co.ch09.vo.User1VO;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class User1Service {
