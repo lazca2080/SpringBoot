@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sboard.dao.ArticleDAO">
+	<insert id="insertArticle" parameterType="kr.co.sboard.vo.ArticleVO" useGeneratedKeys="true" keyProperty="no" keyColumn="no">
+		INSERT INTO `board_article` set
+			`title`=#{title},
+			`content`=#{content},
+			<if test="fname.isEmpty() == true">
+				`file` = 0,
+			</if>
+			<if test="fname.isEmpty() == false">
+				`file` = 1,
+			</if>
+			`uid`=#{uid},
+			`regip`=#{regip},
+			`rdate`=NOW();
+	</insert>
+	
+	<select id="selectArticle" resultType="kr.co.sboard.vo.ArticleVO">
+		SELECT * FROM `board_article` WHERE `no`=#{no};
+	</select>
+	<!--
+	<select id="selectArticle" resultType="kr.co.sboard.vo.ArticleVO">
+		SELECT a.*, b.`oriName`, b.`download` FROM `board_article` AS a
+		JOIN `board_file` AS b ON a.`no` = b.`parent`
+		WHERE `no`=#{no};
+	</select>
+	 -->
+	
+	<select id="selectArticles" resultType="kr.co.sboard.vo.ArticleVO">
+		SELECT a.*, b.`nick` FROM `board_article` AS a 
+		JOIN `board_user` AS b ON a.`uid` = b.`uid`
+		WHERE `parent` = 0 ORDER BY `no` DESC
+		LIMIT #{start}, 10;
+	</select>
+	
+	<update id="updateArticle">
+	</update>
+	
+	<delete id="deleteArticle">
+	</delete>
+	
+	
+	<!-- 파일 -->
+	<insert id="insertFile">
+		INSERT INTO `board_file` set
+			`parent`=#{parent},
+			`newName`=#{newName},
+			`oriName`=#{oriName};
+	</insert>
+	
+	<select id="selectFile" resultType="kr.co.sboard.vo.FileVO">
+		SELECT * FROM `board_file` WHERE `parent`=#{no};
+	</select>
+	
+	<select id="selectCountTotal" resultType="int">
+		SELECT count(`no`) FROM `board_article` WHERE `parent`=0;
+	</select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.sboard.dao.UserDAO">
+	<insert id="insertUser">
+		INSERT INTO `board_user` (`uid`,`pass`,`name`,`nick`,`email`,`hp`,`zip`,`addr1`,`addr2`,`regip`,`rdate`) 
+						  VALUES(#{uid},#{pass},#{name},#{nick},#{email},#{hp},#{zip},#{addr1},#{addr2},#{regip},NOW());
+	</insert>
+	
+	<select id="selectUser" resultType="kr.co.sboard.vo.UserVO">
+		SELECT * FROM `board_user`
+	</select>
+	
+	<select id="selectUsers" resultType="kr.co.sboard.vo.UserVO">
+		SELECT * FROM `board_user` WHERE `uid`=#{uid};
+	</select>
+	
+	<update id="updateUser">
+		UPDATE `board_user` SET
+			`pass`=#{pass},
+			`name`=#{name},
+			`nick`=#{nick},
+			`email`=#{email},
+			`hp`=#{hp},
+			`grade`=#{grade},
+			`zip`=#{zip},
+			`addr1`=#{addr1},
+			`addr2`=#{addr2}
+		WHERE
+			`uid`=#{uid};
+	</update>
+	
+	<delete id="deleteUser">
+		DELETE FROM `board_user` WHERE `uid`=#{uid};
+	</delete>
+
+	<select id="selectTerms" resultType="kr.co.sboard.vo.TermsVO">
+		SELECT * FROM `board_terms`;
+	</select>
+
+</mapper>
