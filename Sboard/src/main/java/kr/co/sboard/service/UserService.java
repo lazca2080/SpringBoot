@@ -56,5 +56,11 @@ public class UserService {
 	public int countByNick(String nick) {
 		return repo.countByNick(nick);
 	}
+	
+	// 이메일 중복 확인
+	public int countByEmail(String email) {
+		return repo.countByEmail(email);
+	}
+	
 
 }

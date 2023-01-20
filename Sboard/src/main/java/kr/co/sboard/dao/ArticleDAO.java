@@ -18,10 +18,12 @@ public interface ArticleDAO {
 	public List<ArticleVO> selectArticles(int start);
 	public int updateArticle(ArticleVO vo);
 	public int deleteArticle(int no);
+	public int updateArticleHit(int no);
 	
 	// 파일
 	public int insertFile(FileVO vo);
-	public FileVO selectFile(int no);
+	public FileVO selectFile(int fno);
+	public int updateFileDownload(int no);
 	
 	// 글
 	public int selectCountTotal();

@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>글보기</title>    
-    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script>
+    	window.onload = function(){
+    		
+    		const form = document.getElementById('form');
+    		
+    		/*
+    		form.submit(function(e){
+			    e.preventDefault();
+    		});
+    		*/
+    	}
+    </script>
 </head>
 <body>
     <div id="wrapper">
@@ -23,9 +36,9 @@
                     <th>제목</th>
                     <td><input type="text" name="title" th:value="${article.title}" readonly/></td>
                 </tr>
-                <tr>
+                <tr th:if="${article.file == 1}">
                     <th>파일</th>
-                    <td><a href="#">2020년 상반기 매출자료.xls</a><span>7</span>회 다운로드</td>
+                    <td><a th:href="@{/download (fno=${article.fileVO.fno})}">[[${article.fileVO.oriName}]]</a><span> [[${article.fileVO.download}]]</span>회 다운로드</td>
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -33,10 +46,13 @@
                 </tr>
             </table>
 
-            <div>
-                <a href="#" class="btn btnRemove">삭제</a>
-                <a th:href="@{/modify}" class="btn btnModify">수정</a>
-                <a th:href="@{/list}" class="btn btnList">목록</a>
+            <div th:if="${article.uid == #authentication.principal.user.uid}">
+                <a th:href="@{/delete (no=${article.no}, pg=${pg})}" class="btn btnRemove">삭제</a>
+                <a th:href="@{/modify (no=${article.no}, pg=${pg})}" class="btn btnModify">수정</a>
+                <a th:href="@{/list (pg=${pg})}" class="btn btnList">목록</a>
+            </div>
+            <div th:unless="${article.uid == #authentication.principal.user.uid}">
+                <a th:href="@{/list (pg=${pg})}" class="btn btnList">목록</a>
             </div>
 
             <!-- 댓글목록 -->
@@ -57,13 +73,13 @@
             <!-- 댓글쓰기 -->
             <section class="commentForm">
                 <h3>댓글쓰기</h3>
-                <form action="#">
+                <form action="#" id="form">
                     <textarea name="content" placeholder="댓글내용 입력"></textarea>
                     <div>
                         <a href="#" class="btn btnCancel">취소</a>
                         <input type="submit" class="btn btnComplete" value="작성완료"/>
                     </div>
-                </form>
+                </form>          
             </section>
         </main>
 

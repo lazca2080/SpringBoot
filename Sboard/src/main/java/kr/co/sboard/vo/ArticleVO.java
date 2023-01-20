@@ -16,6 +16,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ArticleVO {
+	
 	private int no;
 	private int parent;
 	private int comment;
@@ -35,7 +36,6 @@ public class ArticleVO {
 	
 	// 추가
 	private String nick;
-	
-	private String oriName;
-	private int download;
+	private FileVO fileVO;
+	private int pg;
 }

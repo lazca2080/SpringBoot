@@ -92,15 +92,26 @@ public class UserController {
 	
 	// 별명 중복 확인
 	@ResponseBody
-	@GetMapping("user/{nick}")
-	public Map<String, Integer> checkNick(@PathVariable("nick") String nick) {
+	@GetMapping("user/checkNick")
+	public Map<String, Integer> checkNick(@RequestParam("nick") String nick) {
 		
 		int result = service.countByNick(nick);
 		
 		Map<String, Integer> resultMap = new HashMap<>();
 		resultMap.put("result", result);
 		
-		log.info("nick : " + nick);
+		return resultMap;
+	}
+	
+	// 이메일 중복 확인
+	@ResponseBody
+	@GetMapping("user/checkEmail")
+	public Map<String, Integer> checkEmail(@RequestParam("email") String email) {
+		
+		int result = service.countByEmail(email);
+		
+		Map<String, Integer> resultMap = new HashMap<>();
+		resultMap.put("result", result);
 		
 		return resultMap;
 	}

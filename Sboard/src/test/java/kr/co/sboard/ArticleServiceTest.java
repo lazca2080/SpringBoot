@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import kr.co.sboard.service.ArticleService;
 
-@SpringBootTest
 public class ArticleServiceTest {
 	
 	@Autowired
