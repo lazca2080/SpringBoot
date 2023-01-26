@@ -20,15 +20,15 @@ public class SecurityConfigration {
 		
 		// 인가(접근권한) 설정
 		http.authorizeHttpRequests().antMatchers("/").permitAll();
+		http.authorizeHttpRequests().antMatchers("/board/view","/board/write","/board/modify").hasAnyRole("2", "3", "4", "5", "6");
 		
 		// 사이트 위변조 요청 방지
 		http.csrf().disable();
 
-		/*
 		// 로그인 설정
 		http.formLogin()
 		.loginPage("/user/login")
-		.defaultSuccessUrl("/list")
+		.defaultSuccessUrl("/")
 		.failureUrl("/user/login?success=100)")
 		.usernameParameter("uid")
 		.passwordParameter("pass");
@@ -39,11 +39,9 @@ public class SecurityConfigration {
 		.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 		.logoutSuccessUrl("/user/login?success=200");
 
-		*/
-
 		// 사용자 인증 처리 컴포넌트 서비스 등록
 		http.userDetailsService(service);
-		
+
 		return http.build();
 	}
 	

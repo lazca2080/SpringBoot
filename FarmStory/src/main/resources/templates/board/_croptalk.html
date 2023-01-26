@@ -1,4 +1,5 @@
-
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="_croptalk">
         <div id="sub">
             <div><img th:src="@{/img/sub_top_tit3.png}" alt="CROP TALK"></div>
             <section class="cate3">
@@ -22,3 +23,4 @@
                             <em th:if="${cate == 'school'}">귀농학교</em>
                         </p>
                     </nav>
+</th:block>

@@ -723,7 +723,7 @@ main > .info > div > .account {
 #board.list > .btnWrite {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: -35px;
     display: inline-block;
     padding: 8px;
     border: 1px solid #3b3c3f;

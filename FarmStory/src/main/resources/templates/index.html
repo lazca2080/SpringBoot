@@ -1,5 +1,5 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="@{_header.html}"></th:block>
+<th:block th:replace="~{/_header.html :: headerFragment}"></th:block>
     <main>
         <div class="slider">
             <ul>
@@ -179,5 +179,5 @@
             </div>
         </div>
     </main>
-<th:block th:include="@{_footer.html}"></th:block>
+<th:block th:replace="~{/_footer.html :: footerFragment}"></th:block>
 </html>

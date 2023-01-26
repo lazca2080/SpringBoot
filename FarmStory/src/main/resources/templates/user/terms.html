@@ -1,12 +1,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="@{_header.html}"></th:block>
+<script>
+    window.onload = function(){
+
+        const next = document.querySelector('a[class=next]');
+
+        next.addEventListener('click', function(e){
+            const terms   = document.getElementById('checkTerms').checked;
+            const privacy = document.getElementById('checkPrivacy').checked;
+
+            if(terms && privacy){
+                return true;
+            }else{
+                alert('동의 체크를 하세요');
+                e.preventDefault();
+            }
+
+        });
+    }
+</script>
         <main id="user" class="terms">
             <table border="0">
                 <caption>사이트 이용약관</caption>
                 <tr>
                     <td>
-                        <textarea class="terms" readonly>사이트 이용약관</textarea>
-                        <label><input type="checkbox" class="terms">&nbsp;동의합니다.</label>
+                        <textarea class="terms" readonly th:text="${terms.terms}">사이트 이용약관</textarea>
+                        <label><input type="checkbox" id="checkTerms">&nbsp;동의합니다.</label>
                     </td>
                 </tr>
             </table>
@@ -15,8 +34,8 @@
                 <caption>개인정보 취급방침</caption>
                 <tr>
                     <td>
-                        <textarea class="privacy" readonly>개인정보 취급방침</textarea>
-                        <label><input type="checkbox" class="privacy">&nbsp;동의합니다.</label>
+                        <textarea class="privacy" readonly th:text="${terms.privacy}">개인정보 취급방침</textarea>
+                        <label><input type="checkbox" id="checkPrivacy">&nbsp;동의합니다.</label>
                     </td>
                 </tr>
             </table>

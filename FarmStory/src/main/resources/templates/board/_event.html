@@ -1,4 +1,5 @@
-
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="_event">
 <div id="sub">
     <div><img th:src="@{/img/sub_top_tit4.png}" alt="CROP TALK"></div>
     <section class="cate4">
@@ -17,3 +18,4 @@
                     HOME > 이벤트 > <em>[[${cate}]]</em>
                 </p>
             </nav>
+</th:block>

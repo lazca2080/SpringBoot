@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.farmstory.dao.UserDAO">
+    <!-- 회원가입 -->
+    <insert id="insertUser">
+        INSERT INTO `board_user` SET
+            `uid`=#{uid},
+            `pass`=#{pass},
+            `name`=#{name},
+            `nick`=#{nick},
+            `email`=#{email},
+            `hp`=#{hp},
+            `zip`=#{zip},
+            `addr1`=#{addr1},
+            `addr2`=#{addr2},
+            `regip`=#{regip},
+            `rdate`=NOW();
+    </insert>
+
+    <!-- 약관 -->
+    <select id="selectTerms" resultType="kr.co.farmstory.vo.TermsVO">
+        SELECT * FROM `board_terms`;
+    </select>
+
+    <!-- 회원가입 검증 -->
+    <select id="checkUid" resultType="int">
+        SELECT count(`uid`) FROM `board_user` WHERE `uid`=#{uid};
+    </select>
+
+</mapper>

@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="@{_header.html}"></th:block>
-<th:block th:include="@{board/__${group}__.html}"></th:block>
+<th:block th:replace="~{/_header.html :: headerFragment}"></th:block>
+<th:block th:replace="~{/board/__${group}__.html :: __${group}__}"></th:block>
         <main id="board" class="list">
 
             <table border="0">
@@ -12,29 +12,29 @@
                     <th>날짜</th>
                     <th>조회</th>
                 </tr>
-                <!--/*
-                <tr th:each="article, i:${articles}">
-                    <td th:text="${pageStartNum-i.count}"></td>
-                    <td><a th:href="@{/view (no=${article.no}, pg=${currentPage})}" th:text="${article.title+' ['+article.comment+']'}"></a></td>
+
+                <tr th:each="article:${articles}">
+                    <td>[[${article.no}]]</td>
+                    <td><a th:href="@{/board/view (group=${group}, cate=${cate}, no=${article.no})}" th:text="${article.title+' ['+article.comment+']'}"></a></td>
                     <td>[[${article.nick}]]</td>
-                    <td>[[${article.rdate}]]</td>
+                    <td>[[${article.rdate.substring(2,10)}]]</td>
                     <td>[[${article.hit}]]</td>
                 </tr>
-                */-->
+
             </table>
 
-            <!--/*
+
             <div class="page">
                 <a th:href="@{/list (pg=${groups[0]-1})}" class="prev" th:if="${groups[0] > 1}">이전</a>
                 <a th:href="@{/list (pg=${num})}" th:class="${num==currentPage ? 'num current' : 'num'}" th:each="num:${#numbers.sequence(groups[0],groups[1])}">[[${num}]]</a>
                 <a th:href="@{/list (pg=${groups[1]+1})}" class="next" th:if="${groups[1] < lastPage}">다음</a>
             </div>
-            */-->
+
             <a th:href="@{/board/write (group=${group}, cate=${cate})}" class="btnWrite">글쓰기</a>
 
         </main>
         </article>
     </section>
 </div>
-<th:block th:include="@{_footer.html}"></th:block>
+<th:block th:replace="~{/_footer.html :: footerFragment}"></th:block>
 </html>

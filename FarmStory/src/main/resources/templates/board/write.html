@@ -1,9 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:include="@{_header.html}"></th:block>
-<th:block th:include="@{board/__${group}__.html}"></th:block>
+<th:block th:replace="~{/_header.html :: headerFragment}"></th:block>
+<th:block th:replace="~{/board/__${group}__.html :: __${group}__}"></th:block>
         <main id="board" class="write">
             
-            <form th:action="@{/write}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/board/write}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="cate" th:value="${cate}">
+                <input type="hidden" name="group" th:value="${group}">
                 <table border="0">
                     <caption>글쓰기</caption>
                     <tr>
@@ -29,5 +31,5 @@
 </article>
 </section>
 </div>
-<th:block th:include="@{_footer.html}"></th:block>
+<th:block th:replace="~{/_footer.html :: footerFragment}"></th:block>
 </html>

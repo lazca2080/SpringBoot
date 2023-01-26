@@ -1,3 +1,5 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="_community">
 <div id="sub">
     <div><img th:src="@{/img/sub_top_tit5.png}" alt="COMMUNITY"></div>
     <section class="cate5">
@@ -24,3 +26,4 @@
                     <em th:if="${cate == 'qna'}">1:1고객문의</em>
                 </p>
             </nav>
+</th:block>
