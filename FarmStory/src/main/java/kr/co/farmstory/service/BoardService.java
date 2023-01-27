@@ -3,7 +3,8 @@ package kr.co.farmstory.service;
 import kr.co.farmstory.dao.BoardDAO;
 import kr.co.farmstory.vo.BoardVO;
 import kr.co.farmstory.vo.FileVO;
-import org.apache.ibatis.annotations.Param;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
@@ -22,9 +23,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+@Slf4j
 @Service
 public class BoardService {
 
@@ -58,7 +59,60 @@ public class BoardService {
     
     // 해당 글 선택
     public BoardVO selectBoard(int no) { return dao.selectBoard(no); };
+    
+    // 메인 글 불러오기
+    public HashMap<String, Object> selectIndex(){
+        List<BoardVO> Croptalk = dao.selectIndex();
 
+        List<BoardVO> grow    = new ArrayList<>();
+        List<BoardVO> school  = new ArrayList<>();
+        List<BoardVO> story   = new ArrayList<>();
+        List<BoardVO> notice  = new ArrayList<>();
+        List<BoardVO> faq  = new ArrayList<>();
+        List<BoardVO> qna  = new ArrayList<>();
+
+        for (BoardVO crop : Croptalk){
+            BoardVO vo = new BoardVO();
+            String cate  = crop.getCate();
+            vo.setCate(cate);
+            vo.setNo(crop.getNo());
+            vo.setTitle(crop.getTitle());
+            vo.setRdate(crop.getRdate());
+
+            switch (cate) {
+                case "grow":
+                    grow.add(vo);
+                    continue;
+                case "school":
+                    school.add(vo);
+                    continue;
+                case "story":
+                    story.add(vo);
+                    continue;
+                case "notice":
+                    notice.add(vo);
+                    continue;
+                case "faq":
+                    faq.add(vo);
+                    continue;
+                case "qna":
+                    qna.add(vo);
+                    continue;
+            }
+
+        }
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("grow", grow);
+        map.put("story", story);
+        map.put("school", school);
+        map.put("notice", notice);
+        map.put("faq", faq);
+        map.put("qna", qna);
+
+        return map;
+    };
+    
     // 글 목록
     public List<BoardVO> selectBoards(@RequestParam("cate") String cate, @RequestParam("start") int start) {
 
@@ -152,8 +206,8 @@ public class BoardService {
     }
     
     // 전체 게시물 갯수
-    public long getTotalCount(){
-        return dao.selectCountTotal();
+    public long getTotalCount(String cate){
+        return dao.selectCountTotal(cate);
     }
 
     // 마지막 페이지 번호

@@ -1,64 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:include="@{_header.html}"></th:block>
-<script>
-    // 데이터 검증에 사용하는 정규표현식
-    let reUid   = /^[a-z]+[a-z0-9]{5,19}$/g;
-    let rePass  = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{5,16}$/;
-    let reName  = /^[ㄱ-힣]+$/;
-    let reNick  = /^[a-zA-Zㄱ-힣0-9][a-zA-Zㄱ-힣0-9]*$/;
-    let reEmail = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-    let reHp    = /^01(?:0|1|[6-9])-(?:\d{4})-\d{4}$/;
-    let reAuth  = /^[0-9]+$/;
-
-    // 폼 데이터 검증 결과 상태변수
-    let isUidok = false;
-    let isPassok = false;
-    let isNameok = false;
-    let isNickok = false;
-    let isEmailok = false;
-    let isEmailAuthOk = false;
-    let isHpok = false;
-
-    function checkUid(){
-
-        let uid = $('input[name=uid]').val();
-        const resultUid = document.querySelector('span[class=resultUid]');
-
-        if(!uid){ alert('아이디를 입력하세요'); return false; }
-
-        if(uid.match(reUid)){
-            $.ajax({
-                url:'/FarmStory/user/checkUid',
-                data:{ "uid":uid },
-                method:'GET',
-                dataType:'JSON',
-                success: function(data){
-
-                    if(data.result == 1){
-                        resultUid.innerText = "이미 사용중인 아이디입니다..";
-                        resultUid.style.color = "red";
-                        isUidok = false;
-                    }else{
-                        resultUid.innerText = "사용 가능한 아이디입니다.";
-                        resultUid.style.color = "green";
-                        isUidok = true;
-                    }
-                }
-            });
-        }else{
-            resultUid.innerText = "아이디 양식에 맞지 않습니다.";
-            resultUid.style.color = "red";
-            isUidok = false;
-        }
-    }
-
-    function checkNick(){
-
-        let uid = $('input[name=nick]').val();
-    }
-</script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script th:src="@{/js/zipcode.js}"></script>
+<script th:src="@{/js/validation.js}"></script>
         <main id="user" class="register">
-            <form th:action="@{/user/register}" method="post">
+            <form th:action="@{/user/register}" id="form" method="post">
                 <table border="1">
                     <caption>사이트 이용정보 입력</caption>
                     <tr>
@@ -105,14 +51,20 @@
                     <tr>
                         <th>이메일</th>
                         <td>
-                            <input type="email" name="email" id="email" placeholder="이메일 입력"/>
-                            <span class="resultEmail"></span>
+                            <input type="email" name="email" id="checkEmail" placeholder="이메일 입력"/>
+                            <button type="button" style="width:50px; height:19px; border: 1px solid #e4eaec;" onclick="Auth()">인증</button>
+                            <span class="resultEmail"></span><br>
+                            <div id="divEmail" style="display:none">
+                            <input type="emailAuth" name="emailAuth" id="checkEmailAuth" placeholder="인증 번호 입력" style="margin-top:5px;"/>
+                            <button type="button" style="width:50px; height:19px; border: 1px solid #e4eaec;" onclick="emailauth()">확인</button>
+                            <span class="resultEmailAuth"></span>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <th>휴대폰</th>
                         <td>
-                            <input type="text" name="hp" id="hp" placeholder="- 포함 13자리 입력"/>
+                            <input type="text" name="hp" id="checkHp" placeholder="- 포함 13자리 입력"/>
                             <span class="resultHp"></span>
                         </td>
                     </tr>

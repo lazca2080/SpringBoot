@@ -56,6 +56,20 @@
         WHERE `parent` = 0 and `cate`=#{cate} ORDER BY `no` DESC LIMIT #{start}, 10;
     </select>
     
+    <select id="selectIndex" resultType="kr.co.farmstory.vo.BoardVO">
+        (SELECT * FROM `board_article` WHERE `cate`='story' ORDER BY `no` DESC LIMIT 0,5 )
+        UNION
+        (SELECT * FROM `board_article` WHERE `cate`='school' ORDER BY `no` DESC LIMIT 0,5 )
+        UNION
+        (SELECT * FROM `board_article` WHERE `cate`='grow' ORDER BY `no` DESC LIMIT 0,5 )
+        UNION
+        (SELECT * FROM `board_article` WHERE `cate`='notice' ORDER BY `no` DESC LIMIT 0,3)
+        UNION
+        (SELECT * FROM `board_article` WHERE `cate`='faq' ORDER BY `no` DESC LIMIT 0,3)
+        UNION
+        (SELECT * FROM `board_article` WHERE `cate`='qna' ORDER BY `no` DESC LIMIT 0,3)
+    </select>
+    
     <update id="updateBoard">
         UPDATE `board_article` SET
             `title`=#{title},
@@ -64,6 +78,10 @@
         WHERE
             `no`=#{no};
     </update>
+
+    <delete id="deleteBoard">
+        DELETE FROM `board_article` WHERE `no`=#{no};
+    </delete>
 
     <!-- 파일 등록 -->
     <insert id="insertFile">
@@ -80,6 +98,6 @@
 
     <!-- 페이지 번호 -->
     <select id="selectCountTotal" resultType="int">
-        SELECT count(`no`) FROM `board_article` WHERE `parent` = 0;
+        SELECT count(`no`) FROM `board_article` WHERE `parent` = 0 and `cate`=#{cate};
     </select>
 </mapper>

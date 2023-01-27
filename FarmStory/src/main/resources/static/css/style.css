@@ -199,9 +199,10 @@ main > .latest > div > img {
     bottom: 16px;
 }
 main > .latest table {
-    position: absolute;
-    right: 10px;
-    bottom: 16px;
+    width: 207px;
+    height: auto;
+    margin-top: 71px;
+    margin-left: 110px;
     color: #6a6a6a;
 }
 main > .latest table tr > td > a{

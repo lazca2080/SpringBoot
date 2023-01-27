@@ -22,7 +22,7 @@
             </table>
 
             <div th:if="${user.uid == article.uid}">
-                <a href="#" class="btn btnRemove">삭제</a>
+                <a th:href="@{/board/delete (group=${group}, cate=${cate}, no=${article.no})}" class="btn btnRemove">삭제</a>
                 <a th:href="@{/board/modify (group=${group}, cate=${cate}, no=${article.no})}" class="btn btnModify">수정</a>
                 <a th:href="@{/board/list (group=${group}, cate=${cate})}" class="btn btnList">목록</a>
             </div>

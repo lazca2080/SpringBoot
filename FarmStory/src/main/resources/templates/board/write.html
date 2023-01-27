@@ -23,7 +23,7 @@
                 </table>
 
                 <div>
-                    <a th:href="@{/board/list}" class="btn btnCancel">취소</a>
+                    <a th:href="@{/board/list (group=${group}, cate=${cate})}" class="btn btnCancel">취소</a>
                     <input type="submit" value="작성완료" class="btn btnComplete"/>
                 </div>
             </form>

@@ -15,6 +15,7 @@ public interface BoardDAO {
     public int insertBoard(BoardVO vo);
     public BoardVO selectBoard(int no);
     public List<BoardVO> selectBoards(@Param("cate") String cate, @Param("start") int start);
+    public List<BoardVO> selectIndex();
     public int updateBoard(BoardVO vo);
     public int deleteBoard(int no);
 
@@ -23,5 +24,5 @@ public interface BoardDAO {
     public FileVO selectFile(int fno);
     
     // 페이지 번호
-    public int selectCountTotal();
+    public int selectCountTotal(String cate);
 }

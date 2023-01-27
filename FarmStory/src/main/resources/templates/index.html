@@ -18,101 +18,53 @@
         </div>
 
         <div class="quick">
-            <a href="#"><img src="./img/main_banner_sub1_tit.png" alt="오늘의 식단"></a>
-            <a href="#"><img src="./img/main_banner_sub2_tit.png" alt="나도 요리사"></a>
+            <a th:href="@{/board/list (group=_community, cate=menu)}"><img src="./img/main_banner_sub1_tit.png" alt="오늘의 식단"></a>
+            <a th:href="@{/board/list (group=_community, cate=chef)}"><img src="./img/main_banner_sub2_tit.png" alt="나도 요리사"></a>
         </div>
 
         <div class="latest">
             <div>
-                <a href="#"><img src="./img/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
+                <a th:href="@{/board/list (group=_croptalk, cate=grow)}"><img src="./img/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
                 <img src="./img/main_latest1_img.jpg" alt="이미지"/>
                 <table border="0">
-                    <tr>
+                    <tr th:each="grow:${index.grow}">
                         <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
+                        <td><a th:href="@{/board/view (no=${grow.no}, cate=${grow.cate}, group=_croptalk)}">[[${grow.title}]]</a></td>
+                        <td>[[${grow.rdate.substring(2, 10)}]]</td>
                     </tr>
-                    <tr>
+                    <tr th:if="${index.grow.size() == 0}">
                         <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
+                        <td><a th:href="@{/board/list (cate=story, group=_croptalk)}">작성된 글이 없습니다.</a></td>
                     </tr>
                 </table>
             </div>
             <div>
-                <a href="#"><img src="./img/main_latest2_tit.png" alt="귀농학교"/></a>
+                <a th:href="@{/board/list (group=_croptalk, cate=school)}"><img src="./img/main_latest2_tit.png" alt="귀농학교"/></a>
                 <img src="./img/main_latest2_img.jpg" alt="이미지"/>
                 <table border="0">
-                    <tr>
+                    <tr th:each="school:${index.school}" th:if="${croptalk.school != null}">
                         <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
+                        <td><a th:href="@{/board/view (no=${school.no}, cate=${school.cate}, group=_croptalk)}">[[${school.title}]]</a></td>
+                        <td>[[${school.rdate.substring(2, 10)}]]</td>
                     </tr>
-                    <tr>
+                    <tr th:if="${index.school.size() == 0}">
                         <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
+                        <td><a th:href="@{/board/list (cate=story, group=_croptalk)}">작성된 글이 없습니다.</a></td>
                     </tr>
                 </table>
             </div>
             <div>
-                <a href="#"><img src="./img/main_latest3_tit.png" alt="농작물 이야기"/></a>
+                <a th:href="@{/board/list (group=_croptalk, cate=story)}"><img src="./img/main_latest3_tit.png" alt="농작물 이야기"/></a>
                 <img src="./img/main_latest3_img.jpg" alt="이미지"/>
                 <table border="0">
-                    <tr>
+                    <tr th:each="story:${index.story}">
                         <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
+                        <td><a th:href="@{/board/view (no=${story.no}, cate=${story.cate}, group=_croptalk)}">[[${story.title}]]</a></td>
+                        <td>[[${story.rdate.substring(2, 10)}]]</td>
                     </tr>
-                    <tr>
+                    <tr th:if="${index.story.size() == 0}">
                         <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
-                    </tr>
-                    <tr>
-                        <td>></td>
-                        <td><a href="#">토마토! 건강하게 길러서 안심하고 먹자</a></td>
-                        <td>20-12-22</td>
+                        <td><a th:href="@{/board/list (cate=story, group=_croptalk)}">작성된 글이 없습니다.</a></td>
                     </tr>
                 </table>
             </div>
@@ -132,8 +84,8 @@
                     </p>
                 </div>
                 <div class="btns">
-                    <a href="#"><img src="./img/main_sub2_cs_bt1.png" alt="1:1 고객문의"></a>
-                    <a href="#"><img src="./img/main_sub2_cs_bt2.png" alt="자주묻는질문"></a>
+                    <a th:href="@{/board/list (group=_community, cate=qna)}"><img src="./img/main_sub2_cs_bt1.png" alt="1:1 고객문의"></a>
+                    <a th:href="@{/board/list (group=_community, cate=faq)}"><img src="./img/main_sub2_cs_bt2.png" alt="자주묻는질문"></a>
                     <a href="#"><img src="./img/main_sub2_cs_bt3.png" alt="배송조회"></a>
                 </div>
             </div>
@@ -155,24 +107,27 @@
                         <li><a href="#tabs-3">자주묻는 질문</a></li>
                     </ul>
                     <div id="tabs-1">
-                        <ul class="txt">
-                            <li><a href="#">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
-                            <li><a href="#">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
-                            <li><a href="#">· 홈페이지 오픈 기념 이벤트를 진행합니다.</a></li>
+                        <ul class="txt" th:each="notice:${index.notice}">
+                            <li><a th:href="@{/board/view (group=_community, cate=notice, no=${notice.no})}">[[${notice.title}]]</a></li>
+                        </ul>
+                        <ul class="txt" th:if="${index.notice.size() == 0}">
+                            <li><a th:href="@{/board/list (group=_community, cate=notice)}">등록된 게시글이 없습니다.</a></li>
                         </ul>
                     </div>
                     <div id="tabs-2">
-                        <ul class="txt">
-                            <li><a href="#">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                            <li><a href="#">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
-                            <li><a href="#">· 홈페이지 이용 관련 불편사항을 들려주세요.</a></li>
+                        <ul class="txt" th:each="faq:${index.faq}">
+                            <li><a th:href="@{/board/view (group=_community, cate=faq, no=${faq.no})}">[[${faq.title}]]</a></li>
+                        </ul>
+                        <ul class="txt" th:if="${index.faq.size() == 0}">
+                            <li><a th:href="@{/board/list (group=_community, cate=faq)}">등록된 게시글이 없습니다.</a></li>
                         </ul>
                     </div>
                     <div id="tabs-3">
-                        <ul class="txt">
-                            <li><a href="#">· 홈페이지를 오픈하였습니다.</a></li>
-                            <li><a href="#">· 홈페이지를 오픈하였습니다.</a></li>
-                            <li><a href="#">· 홈페이지를 오픈하였습니다.</a></li>
+                        <ul class="txt" th:each="qna:${index.qna}">
+                            <li><a th:href="@{/board/view (group=_community, cate=qna, no=${qna.no})}">[[${qna.title}]]</a></li>
+                        </ul>
+                        <ul class="txt" th:if="${index.qna.size() == 0}">
+                            <li><a th:href="@{/board/list (group=_community, cate=qna)}">등록된 게시글이 없습니다.</a></li>
                         </ul>
                     </div>
                 </div>

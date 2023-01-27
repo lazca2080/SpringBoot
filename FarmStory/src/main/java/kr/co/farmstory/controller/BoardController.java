@@ -35,7 +35,7 @@ public class BoardController {
 
         int currentPage   = service.getCurrentPage(pg);
         int start         = service.getLimitStart(currentPage);
-        long total        = service.getTotalCount();
+        long total        = service.getTotalCount(cate);
         int lastPage      = service.getLastPageNum(total);
         int pageStartNum  = service.getPageStartNum(total, start);
         int[] groups      = service.getPageGroup(currentPage, lastPage);
@@ -47,7 +47,7 @@ public class BoardController {
         model.addAttribute("articles", boards);
         model.addAttribute("currentPage", currentPage);
         model.addAttribute("lastPage", lastPage);
-        model.addAttribute("pageStartNum", pageStartNum);
+        model.addAttribute("pageStartNum", pageStartNum+1);
         model.addAttribute("groups", groups);
 
         return "board/list";
@@ -112,6 +112,13 @@ public class BoardController {
         vo.setRegip(req.getRemoteAddr());
 
         service.insertBoard(vo);
+        return "redirect:/board/list?group="+group+"&cate="+cate;
+    }
+
+    // 글 삭제
+    @GetMapping("board/delete")
+    public String delete(int no, String group, String cate){
+        service.deleteBoard(no);
         return "redirect:/board/list?group="+group+"&cate="+cate;
     }
 

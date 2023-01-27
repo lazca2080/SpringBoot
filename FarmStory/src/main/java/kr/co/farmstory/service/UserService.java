@@ -42,4 +42,19 @@ public class UserService {
     public int checkUid(String uid){
         return dao.checkUid(uid);
     }
+
+    // 별명 중복확인
+    public int checkNick(String nick){
+        return dao.checkNick(nick);
+    }
+
+    // 휴대폰 중복확인
+    public int checkHp(String hp){
+        return dao.checkHp(hp);
+    }
+
+    // 메일 중복확인
+    public int checkEmail(String email){
+        return dao.checkEmail(email);
+    }
 }

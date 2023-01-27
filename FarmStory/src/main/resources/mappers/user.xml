@@ -29,4 +29,16 @@
         SELECT count(`uid`) FROM `board_user` WHERE `uid`=#{uid};
     </select>
 
+    <select id="checkNick" resultType="int">
+        SELECT count(`nick`) FROM `board_user` WHERE `nick`=#{nick};
+    </select>
+
+    <select id="checkHp" resultType="int">
+        SELECT count(`hp`) FROM `board_user` WHERE `hp`=#{hp};
+    </select>
+
+    <select id="checkEmail" resultType="int">
+        SELECT count(`email`) FROM `board_user` WHERE `email`=#{email};
+    </select>
+
 </mapper>

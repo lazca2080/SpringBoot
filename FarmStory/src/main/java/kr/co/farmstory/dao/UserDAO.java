@@ -22,5 +22,8 @@ public interface UserDAO {
 
     // 회원가입
     public int checkUid(String uid);
+    public int checkNick(String nick);
+    public int checkHp(String hp);
+    public int checkEmail(String email);
 
 }

@@ -13,8 +13,8 @@
                     <th>조회</th>
                 </tr>
 
-                <tr th:each="article:${articles}">
-                    <td>[[${article.no}]]</td>
+                <tr th:each="article, i:${articles}">
+                    <td>[[${pageStartNum-i.count}]]</td>
                     <td><a th:href="@{/board/view (group=${group}, cate=${cate}, no=${article.no})}" th:text="${article.title+' ['+article.comment+']'}"></a></td>
                     <td>[[${article.nick}]]</td>
                     <td>[[${article.rdate.substring(2,10)}]]</td>
@@ -24,8 +24,8 @@
             </table>
 
 
-            <div class="page">
-                <a th:href="@{/list (pg=${groups[0]-1})}" class="prev" th:if="${groups[0] > 1}">이전</a>
+            <div class="page" th:if="${pageStartNum != 1}">
+                <a th:href="@{/list (pg=${groups[0]-1})}" class="prev" th:if="${groups[0] > 2}">이전</a>
                 <a th:href="@{/list (pg=${num})}" th:class="${num==currentPage ? 'num current' : 'num'}" th:each="num:${#numbers.sequence(groups[0],groups[1])}">[[${num}]]</a>
                 <a th:href="@{/list (pg=${groups[1]+1})}" class="next" th:if="${groups[1] < lastPage}">다음</a>
             </div>
