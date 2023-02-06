@@ -50,12 +50,21 @@
         </association>
     </resultMap>
 
+    <!-- 댓글 불러오기 -->
+    <select id="selectBoardComment" resultType="kr.co.farmstory.vo.BoardVO">
+        SELECT a.*, b.`nick` FROM `board_article` AS a
+        JOIN `board_user` AS b ON a.`uid` = b.`uid`
+        WHERE `parent`=#{no};
+    </select>
+
+    <!-- 글 목록 불러오기 -->
     <select id="selectBoards" resultType="kr.co.farmstory.vo.BoardVO" parameterType="map">
         SELECT a.*, b.`nick` FROM `board_article`
         AS a JOIN `board_user` AS b ON a.`uid` = b.`uid`
         WHERE `parent` = 0 and `cate`=#{cate} ORDER BY `no` DESC LIMIT #{start}, 10;
     </select>
-    
+
+    <!-- 메인 글 불러오기 -->
     <select id="selectIndex" resultType="kr.co.farmstory.vo.BoardVO">
         (SELECT * FROM `board_article` WHERE `cate`='story' ORDER BY `no` DESC LIMIT 0,5 )
         UNION
@@ -69,7 +78,8 @@
         UNION
         (SELECT * FROM `board_article` WHERE `cate`='qna' ORDER BY `no` DESC LIMIT 0,3)
     </select>
-    
+
+    <!-- 파일 수정 -->
     <update id="updateBoard">
         UPDATE `board_article` SET
             `title`=#{title},
@@ -79,6 +89,7 @@
             `no`=#{no};
     </update>
 
+    <!-- 파일 삭제 -->
     <delete id="deleteBoard">
         DELETE FROM `board_article` WHERE `no`=#{no};
     </delete>

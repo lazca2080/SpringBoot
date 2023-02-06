@@ -27,12 +27,14 @@
                 <a th:href="@{/board/list (group=_croptalk, cate=grow)}"><img src="./img/main_latest1_tit.png" alt="텃밭 가꾸기"/></a>
                 <img src="./img/main_latest1_img.jpg" alt="이미지"/>
                 <table border="0">
+                    <th:block th:if="${index.get('grow') != null}">
                     <tr th:each="grow:${index.grow}">
                         <td>></td>
                         <td><a th:href="@{/board/view (no=${grow.no}, cate=${grow.cate}, group=_croptalk)}">[[${grow.title}]]</a></td>
                         <td>[[${grow.rdate.substring(2, 10)}]]</td>
                     </tr>
-                    <tr th:if="${index.grow.size() == 0}">
+                    </th:block>
+                    <tr th:if="${index.get('grow') == null}">
                         <td>></td>
                         <td><a th:href="@{/board/list (cate=story, group=_croptalk)}">작성된 글이 없습니다.</a></td>
                     </tr>
@@ -42,12 +44,14 @@
                 <a th:href="@{/board/list (group=_croptalk, cate=school)}"><img src="./img/main_latest2_tit.png" alt="귀농학교"/></a>
                 <img src="./img/main_latest2_img.jpg" alt="이미지"/>
                 <table border="0">
+                    <th:block th:if="${index.get('school') != null}">
                     <tr th:each="school:${index.school}" th:if="${croptalk.school != null}">
                         <td>></td>
                         <td><a th:href="@{/board/view (no=${school.no}, cate=${school.cate}, group=_croptalk)}">[[${school.title}]]</a></td>
                         <td>[[${school.rdate.substring(2, 10)}]]</td>
                     </tr>
-                    <tr th:if="${index.school.size() == 0}">
+                    </th:block>
+                    <tr th:if="${index.get('school') == null}">
                         <td>></td>
                         <td><a th:href="@{/board/list (cate=story, group=_croptalk)}">작성된 글이 없습니다.</a></td>
                     </tr>
@@ -57,12 +61,14 @@
                 <a th:href="@{/board/list (group=_croptalk, cate=story)}"><img src="./img/main_latest3_tit.png" alt="농작물 이야기"/></a>
                 <img src="./img/main_latest3_img.jpg" alt="이미지"/>
                 <table border="0">
+                    <th:block th:if="${index.get('story') != null}">
                     <tr th:each="story:${index.story}">
                         <td>></td>
                         <td><a th:href="@{/board/view (no=${story.no}, cate=${story.cate}, group=_croptalk)}">[[${story.title}]]</a></td>
                         <td>[[${story.rdate.substring(2, 10)}]]</td>
                     </tr>
-                    <tr th:if="${index.story.size() == 0}">
+                    </th:block>
+                    <tr th:if="${index.get('story') == null}">
                         <td>></td>
                         <td><a th:href="@{/board/list (cate=story, group=_croptalk)}">작성된 글이 없습니다.</a></td>
                     </tr>
@@ -107,26 +113,32 @@
                         <li><a href="#tabs-3">자주묻는 질문</a></li>
                     </ul>
                     <div id="tabs-1">
+                        <th:block th:if="${index.get('notice') != null}">
                         <ul class="txt" th:each="notice:${index.notice}">
                             <li><a th:href="@{/board/view (group=_community, cate=notice, no=${notice.no})}">[[${notice.title}]]</a></li>
                         </ul>
-                        <ul class="txt" th:if="${index.notice.size() == 0}">
+                        </th:block>
+                        <ul class="txt" th:if="${index.get('notice') == null}">
                             <li><a th:href="@{/board/list (group=_community, cate=notice)}">등록된 게시글이 없습니다.</a></li>
                         </ul>
                     </div>
                     <div id="tabs-2">
+                        <th:block th:if="${index.get('faq') != null}">
                         <ul class="txt" th:each="faq:${index.faq}">
                             <li><a th:href="@{/board/view (group=_community, cate=faq, no=${faq.no})}">[[${faq.title}]]</a></li>
                         </ul>
-                        <ul class="txt" th:if="${index.faq.size() == 0}">
+                        </th:block>
+                        <ul class="txt" th:if="${index.get('faq') == null}">
                             <li><a th:href="@{/board/list (group=_community, cate=faq)}">등록된 게시글이 없습니다.</a></li>
                         </ul>
                     </div>
                     <div id="tabs-3">
+                        <th:block th:if="${index.get('qna') != null}">
                         <ul class="txt" th:each="qna:${index.qna}">
                             <li><a th:href="@{/board/view (group=_community, cate=qna, no=${qna.no})}">[[${qna.title}]]</a></li>
                         </ul>
-                        <ul class="txt" th:if="${index.qna.size() == 0}">
+                        </th:block>
+                        <ul class="txt" th:if="${index.get('qna') == null}">
                             <li><a th:href="@{/board/list (group=_community, cate=qna)}">등록된 게시글이 없습니다.</a></li>
                         </ul>
                     </div>

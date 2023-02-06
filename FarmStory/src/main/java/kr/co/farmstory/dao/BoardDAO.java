@@ -14,6 +14,7 @@ public interface BoardDAO {
 
     public int insertBoard(BoardVO vo);
     public BoardVO selectBoard(int no);
+    public BoardVO selectBoardComment(int no);
     public List<BoardVO> selectBoards(@Param("cate") String cate, @Param("start") int start);
     public List<BoardVO> selectIndex();
     public int updateBoard(BoardVO vo);

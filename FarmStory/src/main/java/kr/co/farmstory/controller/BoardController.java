@@ -87,9 +87,14 @@ public class BoardController {
         model.addAttribute("group", group);
         model.addAttribute("cate", cate);
 
+        // 글 불러오기
         BoardVO article = service.selectBoard(no);
+        
+        // 댓글 불러오기
+        BoardVO comment = service.selectBoardComment(no);
 
         model.addAttribute("article", article);
+        model.addAttribute("comment", comment);
         return "board/view";
     }
 
