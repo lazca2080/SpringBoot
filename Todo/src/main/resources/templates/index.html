@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+    <link rel="stylesheet"
+          href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+
+    <style>
+        * { margin : 0; padding: 0; }
+        #wrapper {width: 800px; height: auto; margin: 0 auto; overflow: hidden; }
+        section { width: 800px; height: auto; margin: 0 auto; }
+        h3 { margin-bottom: 10px; }
+
+        section > div {
+            float: left;
+            width: 33.33%;
+            height: 100%;
+            padding: 6px;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        article {
+            width: 100%;
+            height: 600px;
+            padding: 6px;
+            background: #f6f8fa;
+            border: 1px solid #d8dee4;
+            border-radius: 6px;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+        .item {
+            float: left;
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin-top: 6px;
+            background: white;
+            border: 1px solid #d8dee4;
+            border-radius: 6px;
+            box-sizing: border-box;
+            z-index: 100000;
+        }
+
+        .item > .del {
+            float: right;
+            background: noen;
+            border: none;
+        }
+
+        .add {
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        .add > input {
+            padding: 6px;
+            box-sizing: border-box;
+            outline: none;
+        }
+    </style>
+    <script>
+        // 현재 날짜 구하기
+        var now = new Date();
+
+        var year = now.getFullYear();
+
+        var month = ('0' + (now.getMonth() + 1)).slice(-2);
+
+        var date = ('0' + now.getDate()).slice(-2);
+
+        let nowDate = year + '-' + month + '-' + date;
+
+        let noList = [];
+
+        function maxNo(){
+            noList = [];
+            $('.item').each(function(){
+                console.log(($(this).attr('data-no')));
+                noList.push(($(this).attr('data-no')));
+            });
+
+            let no = Math.max.apply(null, noList);
+            console.log(noList);
+
+            return no;
+        }
+
+        $(function(){
+            $('article').sortable({
+                connectWith: "article",
+                scroll: false,
+                helper: "clone",
+                receive: function(e, ui){
+                    let no = $(ui .item).attr('data-no');
+                    let value = $(this).attr('data-status');
+
+                    jsonData = [no, value];
+
+                    $.ajax({
+                        url:'/Todo/update',
+                        method:'Post',
+                        data: { "jsonData" : jsonData},
+                        dataType:'JSON',
+                        success: function(data){
+                            console.log(data.result);
+                        }
+                    });
+                }
+            });
+
+            $('#btnAdd').click(function(){
+                let no = maxNo()+1;
+
+                let value = $('input[name=todo]').val();
+                let item = `<div class='item' data-no='`+no+`'>
+                                <button class='del'>X</button>
+                                <em class='tit'>#`+no+`</em>
+                                <p>`+ value +`</p>
+                                <span class='date'>`+ nowDate +`</span>
+                            </div>`;
+                $('.ready').append(item);
+
+                let jsonData = [no, value];
+
+                $.ajax({
+                    url:'/Todo/insert',
+                    method:'Post',
+                    data: { "jsonData" : jsonData},
+                    dataType:'JSON',
+                    success: function(data){
+                        console.log(data.result);
+                    }
+                });
+
+            });
+
+            $(document).on('click', '.del', function(){
+                $(this).parent().remove();
+
+                let no = $(this).parent().attr('data-no');
+
+                $.ajax({
+                    url:'/Todo/delete',
+                    method:'Post',
+                    data: { "no" : no},
+                    dataType:'JSON',
+                    success: function(data){
+                        console.log(data.result);
+                    }
+                });
+
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="wrapper">
+        <section>
+            <div>
+                <h3>Ready</h3>
+                <Article class="ready" data-status="1">
+                    <div class="item" th:each="first:${todo.get(1)}"  th:data-no="${first.no}">
+                        <button class="del">X</button>
+                        <em class="tit">#[[${first.no}]]</em>
+                        <p>[[${first.content}]]</p>
+                        <span class="data">[[${first.rdate.substring(2,10)}]]</span>
+                    </div>
+                </Article>
+            </div>
+            <div>
+                <h3>Doing</h3>
+                <article class="doing" data-status="2">
+                    <div class="item" th:each="second:${todo.get(2)}" th:data-no="${second.no}">
+                        <button class="del">X</button>
+                        <em class="tit">#[[${second.no}]]</em>
+                        <p>[[${second.content}]]</p>
+                        <span class="data">[[${second.rdate.substring(2,10)}]]</span>
+                    </div>
+                </article>
+            </div>
+            <div>
+                <h3>Done</h3>
+                <article class="done" data-status="3">
+                    <div class="item" th:each="third:${todo.get(3)}" th:data-no="${third.no}">
+                        <button class="del">X</button>
+                        <em class="tit">#[[${third.no}]]</em>
+                        <p>[[${third.content}]]</p>
+                        <span class="data">[[${third.rdate.substring(2,10)}]]</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <div class="add">
+            <input type="text" name="todo"/>
+            <input type="button" id="btnAdd" value="추가">
+        </div>
+    </div>
+</body>
+</html>
